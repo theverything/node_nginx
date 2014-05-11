@@ -12,4 +12,12 @@ Build node container
 
 Start node container
 
-`sudo docker run -d --name node_cont_1 -p <docker-ip-address>:8080:8080 -i -t node_img_1`
+`sudo docker run -d --name node_cont_1 -p $DOCKERIP:8080:8080 -i -t node_img_1`
+
+Build redis container
+
+`sudo docker build  -t redis_img_1 .`
+
+Start redis container
+
+`sudo docker run -d --name redis_cont_1 -p $DOCKERIP:6379:6379 -i -t redis_img_1`
