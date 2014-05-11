@@ -11,4 +11,5 @@ Build node container
 `sudo docker build  -t node_img_1 .`
 
 Start node container
-`sudo docker run -d --name node_cont_1 -p 8080:8080 -i -t node_img_1`
+
+`sudo docker run -d --name node_cont_1 -p <docker-ip-address>:8080:8080 -i -t node_img_1`
