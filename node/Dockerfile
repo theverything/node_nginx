@@ -17,12 +17,15 @@ RUN apt-get install -y nodejs
 RUN mkdir /home/app
 
 ADD app.js /home/app/app.js
+ADD package.json /home/app/package.json
 
-RUN echo '\n# Node.js\nexport PATH="/home/app/node_modules/.bin:$PATH"' >> /root/.bash_profile
+RUN npm install /home/app/
+
+RUN echo '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bash_profile
 
 # Expose ports
 EXPOSE 8080
 
 # Set the default command to execute
 # when creating a new container
-CMD ["nodejs", "/home/app/app.js"]
+CMD ["node", "/home/app/app.js"]
