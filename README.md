@@ -1,3 +1,7 @@
+Set `DOCKERIP` env var
+
+`export DOCKERIP=$(sudo ifconfig docker0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')`
+
 Build nginx container
 
 `sudo docker build  -t nginx_img_1 .`
