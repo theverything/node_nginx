@@ -19,7 +19,7 @@ RUN mkdir /home/app
 ADD app.js /home/app/app.js
 ADD package.json /home/app/package.json
 
-RUN npm install /home/app/
+#RUN npm install /home/app/
 
 RUN echo '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bash_profile
 
