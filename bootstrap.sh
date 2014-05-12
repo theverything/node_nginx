@@ -1,4 +1,5 @@
 export DOCKERIP=$(sudo ifconfig docker0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+sed -i -e "s/<%DOCKERIP>/$DOCKERIP/g" /etc/nginx/nginx.conf
 sudo docker build  -t nginx_img_1 ./nginx
 sudo docker run -d --name nginx_cont_1 -p 80:80 -i -t nginx_img_1
 sudo docker build  -t node_img_1 ./node
