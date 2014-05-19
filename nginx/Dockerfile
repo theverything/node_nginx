@@ -10,27 +10,28 @@ FROM dockerfile/ubuntu
 MAINTAINER Jeffrey Horn
 
 # Install Nginx
-# Update the repository
-RUN add-apt-repository -y ppa:nginx/stable
-RUN apt-get update
+RUN \
+  add-apt-repository -y ppa:nginx/stable && \
+  apt-get update && \
+  apt-get install -y nginx && \
+  echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
+  chown -R www-data:www-data /var/lib/nginx
 
-# Download and Install Nginx
-RUN apt-get install -y nginx
-
-# Backup orignal config
-Run cp -v /etc/nginx/nginx.conf  /etc/nginx/nginx.conf.backup
-
-# Remove the default Nginx configuration file
-RUN rm -v /etc/nginx/nginx.conf
-
-# Copy a configuration file from the current directory
+# Add nginx.conf
+Run \
+  cp -v /etc/nginx/nginx.conf  /etc/nginx/nginx.conf.backup && \
+  rm -v /etc/nginx/nginx.conf
 ADD nginx.conf /etc/nginx/
 
-# Append "daemon off;" to the beginning of the configuration
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+# Define mountable directories.
+VOLUME ["/data", "/etc/nginx/sites-enabled", "/var/log/nginx"]
+
+# Define working directory.
+WORKDIR /etc/nginx
 
 # Expose ports
 EXPOSE 80
+EXPOSE 443
 
 # Set the default command to execute
 # when creating a new container
